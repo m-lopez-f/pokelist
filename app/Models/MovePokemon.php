@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class MovementPokemon extends Pivot
+class MovePokemon extends Pivot
 {
-    //
+    public $incrementing = false;
 }

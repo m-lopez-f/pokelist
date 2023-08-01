@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('key');
-            $table->string('url');
+            $table->string('url')->nullable();
             $table->decimal('power', 10, 2);
             $table->foreignIdFor(Type::class);
             $table->timestamps();

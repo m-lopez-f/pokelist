@@ -15,8 +15,9 @@ return new class extends Migration
         Schema::create('pokemon', function (Blueprint $table) {
             $table->id();
             $table->integer('level');
+            $table->string('national_id');
             $table->string('name');
-            $table->foreignIdFor(Type::class);
+            $table->string('key');
             $table->decimal('actual_ps', 10, 2);
             $table->decimal('total_ps', 10, 2);
             $table->decimal('base_attack', 10, 2);

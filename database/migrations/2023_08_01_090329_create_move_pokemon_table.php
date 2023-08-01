@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Movement;
+use App\Models\Move;
 use App\Models\Pokemon;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
