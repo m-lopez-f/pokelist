@@ -35,4 +35,9 @@ class Pokemon extends Model
     {
         return $this->belongsToMany(Type::class);
     }
+
+    public function trainers(): BelongsToMany
+    {
+        return $this->belongsToMany(Trainer::class)->using(PokemonTrainer::class);
+    }
 }
