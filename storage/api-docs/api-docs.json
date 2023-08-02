@@ -1,0 +1,1263 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Laravel OpenApi Pokemon Documentation",
+        "description": "Pokedex and moves of pokemon universe",
+        "contact": {
+            "email": "mlf.481990@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://my-default-host.com",
+            "description": "Pokemon API Server"
+        }
+    ],
+    "paths": {
+        "/api/pokemons": {},
+        "/moves": {
+            "get": {
+                "tags": [
+                    "Moves"
+                ],
+                "summary": "Get list of Moves",
+                "description": "Returns list of Moves",
+                "operationId": "getMovesList",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/MoveResource"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Moves"
+                ],
+                "summary": "Store new Move",
+                "description": "Returns Move data",
+                "operationId": "storeMoves",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreMoveRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Move"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/moves/{id}": {
+            "get": {
+                "tags": [
+                    "Moves"
+                ],
+                "summary": "Get Move information",
+                "description": "Returns Move data",
+                "operationId": "getMovesById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Move id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Move"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Moves"
+                ],
+                "summary": "Update existing Move",
+                "description": "Returns updated Move data",
+                "operationId": "updateMove",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Move id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateMoveRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Move"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Moves"
+                ],
+                "summary": "Delete existing Move",
+                "description": "Deletes a record and returns no content",
+                "operationId": "deleteMove",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Move id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/moves/{id}/pokemons": {
+            "get": {
+                "tags": [
+                    "Moves"
+                ],
+                "summary": "Get Pokemons Same Move information",
+                "description": "Returns  Pokemons Same Move data",
+                "operationId": "gePokemonsSameMove",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Move id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Pokemon"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/pokemons": {
+            "get": {
+                "tags": [
+                    "Pokemons"
+                ],
+                "summary": "Get list of Pokemons",
+                "description": "Returns list of Pokemons",
+                "operationId": "getPokemonList",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PokemonResource"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Pokemons"
+                ],
+                "summary": "Store new Pokemon",
+                "description": "Returns Pokemon data",
+                "operationId": "storePokemon",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StorePokemonRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Pokemon"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/pokemons/{id}": {
+            "get": {
+                "tags": [
+                    "Pokemons"
+                ],
+                "summary": "Get Pokemon information",
+                "description": "Returns Pokemon data",
+                "operationId": "getPokemonById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Pokemon id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Pokemon"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Pokemons"
+                ],
+                "summary": "Update existing Pokemon",
+                "description": "Returns updated Pokemon data",
+                "operationId": "updatePokemon",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Pokemon id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdatePokemonRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Pokemon"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Pokemons"
+                ],
+                "summary": "Delete existing Pokemon",
+                "description": "Deletes a record and returns no content",
+                "operationId": "deletePokemon",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Pokemon id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/pokemons/{id}/moves": {
+            "get": {
+                "tags": [
+                    "Pokemons"
+                ],
+                "summary": "Get Pokemon Moves information",
+                "description": "Returns Pokemon Moves data",
+                "operationId": "getPokemonMovesById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Pokemon id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Move"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/trainers": {
+            "get": {
+                "tags": [
+                    "Trainers"
+                ],
+                "summary": "Get list of Trainers",
+                "description": "Returns list of Trainers",
+                "operationId": "getTrainerList",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TrainerResource"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Trainers"
+                ],
+                "summary": "Store new Trainer",
+                "description": "Returns Trainer data",
+                "operationId": "storeTrainer",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreTrainerRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Trainer"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/trainers/{id}": {
+            "get": {
+                "tags": [
+                    "Trainers"
+                ],
+                "summary": "Get Trainer information",
+                "description": "Returns Trainer data",
+                "operationId": "getTrainerById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Trainer id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Trainer"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Trainers"
+                ],
+                "summary": "Update existing Trainer",
+                "description": "Returns updated Trainer data",
+                "operationId": "updateTrainer",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Trainer id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateTrainerRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Trainer"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Trainers"
+                ],
+                "summary": "Delete existing Trainer",
+                "description": "Deletes a record and returns no content",
+                "operationId": "deleteTrainer",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Trainer id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Move": {
+                "title": "Move",
+                "description": "Move model",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "description": "ID",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "name": {
+                        "title": "Name",
+                        "description": "Name of the new Move",
+                        "type": "string",
+                        "example": "A nice Move"
+                    },
+                    "power": {
+                        "title": "Power",
+                        "description": "Power of the new Move",
+                        "type": "string",
+                        "example": "This is new Move's Power"
+                    },
+                    "created_at": {
+                        "title": "Created at",
+                        "description": "Created at",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2020-01-27 17:50:45"
+                    },
+                    "updated_at": {
+                        "title": "Updated at",
+                        "description": "Updated at",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2020-01-27 17:50:45"
+                    },
+                    "type": {
+                        "$ref": "#/components/schemas/Type"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Move"
+                }
+            },
+            "Pokemon": {
+                "title": "Pokemon",
+                "description": "Pokemon model",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "description": "ID",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "name": {
+                        "title": "Name",
+                        "description": "Name of the new Pokemon",
+                        "type": "string",
+                        "example": "A nice Pokemon"
+                    },
+                    "power": {
+                        "title": "Power",
+                        "description": "Power of the new Pokemon",
+                        "type": "string",
+                        "example": "This is new Pokemon's Power"
+                    },
+                    "created_at": {
+                        "title": "Created at",
+                        "description": "Created at",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2020-01-27 17:50:45"
+                    },
+                    "updated_at": {
+                        "title": "Updated at",
+                        "description": "Updated at",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2020-01-27 17:50:45"
+                    },
+                    "move": {
+                        "title": "moves",
+                        "description": "List of moves move's model",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Move"
+                        }
+                    },
+                    "type": {
+                        "title": "type",
+                        "description": "type type's model",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Type"
+                        }
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Pokemon"
+                }
+            },
+            "Trainer": {
+                "title": "Trainer",
+                "description": "Trainer model",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "description": "ID",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "name": {
+                        "title": "Name",
+                        "description": "Name of the new Trainer",
+                        "type": "string",
+                        "example": "A nice Trainer"
+                    },
+                    "created_at": {
+                        "title": "Created at",
+                        "description": "Created at",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2020-01-27 17:50:45"
+                    },
+                    "updated_at": {
+                        "title": "Updated at",
+                        "description": "Updated at",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2020-01-27 17:50:45"
+                    },
+                    "pokemons": {
+                        "title": "pokemons",
+                        "description": "pokemons pokemons's model",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Pokemon"
+                        }
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Trainer"
+                }
+            },
+            "Type": {
+                "title": "Type",
+                "description": "Type model",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "description": "ID",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "name": {
+                        "title": "Name",
+                        "description": "Name of the new Type",
+                        "type": "string",
+                        "example": "A nice Type"
+                    },
+                    "created_at": {
+                        "title": "Created at",
+                        "description": "Created at",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2020-01-27 17:50:45"
+                    },
+                    "updated_at": {
+                        "title": "Updated at",
+                        "description": "Updated at",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2020-01-27 17:50:45"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Type"
+                }
+            },
+            "StoreMoveRequest": {
+                "title": "Store Move request",
+                "description": "Store Move request body data",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "name": {
+                        "title": "name",
+                        "description": "Name of the new Move",
+                        "type": "string",
+                        "example": "A nice Move"
+                    },
+                    "key": {
+                        "title": "key",
+                        "description": "Key of the new Move",
+                        "type": "string",
+                        "example": "a-nice-move"
+                    },
+                    "power": {
+                        "title": "power",
+                        "description": "Power of the new Move",
+                        "example": "85"
+                    },
+                    "type_id": {
+                        "title": "type_id",
+                        "description": "Type's id of the new Move",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    }
+                },
+                "type": "object"
+            },
+            "StorePokemonRequest": {
+                "title": "Store Pokemon request",
+                "description": "Store Pokemon request body data",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "name": {
+                        "title": "name",
+                        "description": "Name of the new Pokemon",
+                        "type": "string",
+                        "example": "A nice Pokemon"
+                    },
+                    "key": {
+                        "title": "key",
+                        "description": "Key of the new Pokemon",
+                        "type": "string",
+                        "example": "a-nice-pokemon"
+                    },
+                    "national_id": {
+                        "title": "national_id",
+                        "description": "National ID of the new Pokemon",
+                        "type": "string",
+                        "example": "0001"
+                    },
+                    "actual_ps": {
+                        "title": "actual_ps",
+                        "description": "Actual PS of the new Pokemon",
+                        "format": "float",
+                        "example": "85"
+                    },
+                    "total_ps": {
+                        "title": "total_ps",
+                        "description": "Total PS of the new Pokemon",
+                        "format": "float",
+                        "example": "85"
+                    },
+                    "base_attack": {
+                        "title": "base_attack",
+                        "description": "Base Attack of the new Pokemon",
+                        "format": "float",
+                        "example": "85"
+                    },
+                    "base_defense": {
+                        "title": "base_defense",
+                        "description": "Base Defense of the new Pokemon",
+                        "format": "float",
+                        "example": "85"
+                    },
+                    "base_special_attack": {
+                        "title": "base_special_attack",
+                        "description": "Base Special Attack of the new Pokemon",
+                        "format": "float",
+                        "example": "85"
+                    },
+                    "base_special_defense": {
+                        "title": "base_special_defense",
+                        "description": "Base Special Defense of the new Pokemon",
+                        "format": "float",
+                        "example": "85"
+                    },
+                    "base_speed": {
+                        "title": "base_speed",
+                        "description": "Base Speed of the new Pokemon",
+                        "format": "float",
+                        "example": "85"
+                    },
+                    "type": {
+                        "title": "type",
+                        "description": "Type's of the new Pokemon",
+                        "type": "string",
+                        "format": "string",
+                        "example": "[1]"
+                    },
+                    "moves": {
+                        "title": "moves",
+                        "description": "Moves's of the new Pokemon",
+                        "type": "string",
+                        "format": "string",
+                        "example": "[1]"
+                    }
+                },
+                "type": "object"
+            },
+            "StoreTrainerRequest": {
+                "title": "Store Trainer request",
+                "description": "Store Trainer request body data",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "name": {
+                        "title": "name",
+                        "description": "Name of the update Trainer",
+                        "type": "string",
+                        "example": "A nice Trainer"
+                    },
+                    "pokemons": {
+                        "title": "pokemons",
+                        "description": "pokemons's of the update Trainer",
+                        "type": "string",
+                        "format": "string",
+                        "example": "[1]"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateMoveRequest": {
+                "title": "Update Move request",
+                "description": "Update Move request body data",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "name": {
+                        "title": "name",
+                        "description": "Name of the update Move",
+                        "type": "string",
+                        "example": "A nice Move"
+                    },
+                    "key": {
+                        "title": "key",
+                        "description": "Key of the update Move",
+                        "type": "string",
+                        "example": "a-nice-move"
+                    },
+                    "power": {
+                        "title": "power",
+                        "description": "Power of the update Move",
+                        "example": "85"
+                    },
+                    "type_id": {
+                        "title": "type_id",
+                        "description": "Type's id of the update Move",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    }
+                },
+                "type": "object"
+            },
+            "UpdatePokemonRequest": {
+                "title": "Update Pokemon request",
+                "description": "Update Pokemon request body data",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "name": {
+                        "title": "name",
+                        "description": "Name of the update Pokemon",
+                        "type": "string",
+                        "example": "A nice Pokemon"
+                    },
+                    "key": {
+                        "title": "key",
+                        "description": "Key of the update Pokemon",
+                        "type": "string",
+                        "example": "a-nice-pokemon"
+                    },
+                    "national_id": {
+                        "title": "national_id",
+                        "description": "National ID of the update Pokemon",
+                        "type": "string",
+                        "example": "0001"
+                    },
+                    "actual_ps": {
+                        "title": "actual_ps",
+                        "description": "Actual PS of the update Pokemon",
+                        "format": "float",
+                        "example": "85"
+                    },
+                    "total_ps": {
+                        "title": "total_ps",
+                        "description": "Total PS of the update Pokemon",
+                        "format": "float",
+                        "example": "85"
+                    },
+                    "base_attack": {
+                        "title": "base_attack",
+                        "description": "Base Attack of the update Pokemon",
+                        "format": "float",
+                        "example": "85"
+                    },
+                    "base_defense": {
+                        "title": "base_defense",
+                        "description": "Base Defense of the update Pokemon",
+                        "format": "float",
+                        "example": "85"
+                    },
+                    "base_special_attack": {
+                        "title": "base_special_attack",
+                        "description": "Base Special Attack of the update Pokemon",
+                        "format": "float",
+                        "example": "85"
+                    },
+                    "base_special_defense": {
+                        "title": "base_special_defense",
+                        "description": "Base Special Defense of the update Pokemon",
+                        "format": "float",
+                        "example": "85"
+                    },
+                    "base_speed": {
+                        "title": "base_speed",
+                        "description": "Base Speed of the update Pokemon",
+                        "format": "float",
+                        "example": "85"
+                    },
+                    "type": {
+                        "title": "type",
+                        "description": "Type's of the update Pokemon",
+                        "type": "string",
+                        "format": "string",
+                        "example": "[1]"
+                    },
+                    "moves": {
+                        "title": "moves",
+                        "description": "Moves's of the update Pokemon",
+                        "type": "string",
+                        "format": "string",
+                        "example": "[1]"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateTrainerRequest": {
+                "title": "Update Trainer request",
+                "description": "Update Trainer request body data",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "name": {
+                        "title": "name",
+                        "description": "Name of the update Trainer",
+                        "type": "string",
+                        "example": "A nice Trainer"
+                    },
+                    "pokemons": {
+                        "title": "pokemons",
+                        "description": "pokemons's of the update Trainer",
+                        "type": "string",
+                        "format": "string",
+                        "example": "[1]"
+                    }
+                },
+                "type": "object"
+            },
+            "MoveResource": {
+                "title": "MoveResource",
+                "description": "Move resource",
+                "properties": {
+                    "data": {
+                        "title": "Move Data",
+                        "description": "Data wrapper",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Move"
+                        }
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "MoveResource"
+                }
+            },
+            "PokemonResource": {
+                "title": "PokemonResource",
+                "description": "Pokemon resource",
+                "properties": {
+                    "data": {
+                        "title": "Pokemon Data",
+                        "description": "Data wrapper",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Pokemon"
+                        }
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "PokemonResource"
+                }
+            },
+            "TrainerResource": {
+                "title": "TrainerResource",
+                "description": "Trainer resource",
+                "properties": {
+                    "data": {
+                        "title": "Trainer Data",
+                        "description": "Data wrapper",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Trainer"
+                        }
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "TrainerResource"
+                }
+            },
+            "TypeResource": {
+                "title": "TypeResource",
+                "description": "Type resource",
+                "properties": {
+                    "data": {
+                        "title": "Data",
+                        "description": "Data wrapper",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Type"
+                        }
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "TypeResource"
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Pokemons",
+            "description": "API Endpoints of Pokemons"
+        },
+        {
+            "name": "Moves",
+            "description": "API Endpoints of Moves"
+        }
+    ]
+}
